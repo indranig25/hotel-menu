@@ -1,0 +1,50 @@
+class HotelMenu:
+    def __init__(self):
+        self.menu = {
+            '1': {'item': 'Burger', 'price': 10.99},
+            '2': {'item': 'Pizza', 'price': 12.99},
+            '3': {'item': 'Pasta', 'price': 8.99},
+            '4': {'item': 'Salad', 'price': 5.99},
+            '5': {'item': 'Soda', 'price': 2.49},
+        }
+
+    def display_menu(self):
+        print("==== Hotel Menu ====")
+        for key, value in self.menu.items():
+            print(f"{key}. {value['item']}: ${value['price']}")
+
+    def order_food(self):
+        selected_items = []
+        while True:
+            self.display_menu()
+            choice = input("Enter the number of the item you want to order (or 'q' to quit): ")
+            
+            if choice.lower() == 'q':
+                break
+            elif choice in self.menu:
+                selected_items.append(self.menu[choice])
+                print(f"{self.menu[choice]['item']} added to your order.")
+            else:
+                print("Invalid choice. Please select a valid item number.")
+
+        return selected_items
+
+    def calculate_total(self, selected_items):
+        total_cost = sum(item['price'] for item in selected_items)
+        return total_cost
+
+
+def main():
+    print("Welcome to Our Hotel!")
+    
+    hotel_menu = HotelMenu()
+    order = hotel_menu.order_food()
+
+    if order:
+        total_cost = hotel_menu.calculate_total(order)
+        print(f"Your order total is: ${total_cost:.2f}")
+        print("Thank you for dining with us!")
+
+
+if __name__ == "__main__":
+    main()
